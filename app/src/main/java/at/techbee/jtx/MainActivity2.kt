@@ -81,6 +81,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory
+import java.io.FileNotFoundException
 import java.time.ZonedDateTime
 import kotlin.time.Duration.Companion.minutes
 
@@ -278,9 +279,14 @@ class MainActivity2 : AppCompatActivity() {
                 Intent.ACTION_VIEW -> {
                     if (intent.type == "text/calendar") {
                         val ics = intent.data ?: return
-                        this.contentResolver.openInputStream(ics)?.use { stream ->
-                            globalStateHolder.icalString2Import.value =
-                                stream.readBytes().decodeToString()
+                        try {
+                            this.contentResolver.openInputStream(ics)?.use { stream ->
+                                globalStateHolder.icalString2Import.value =
+                                    stream.readBytes().decodeToString()
+                            }
+                        } catch (e: FileNotFoundException) {
+                            Toast.makeText(applicationContext, e.localizedMessage, Toast.LENGTH_SHORT).show()
+                            //Log.e("MainActivity2", e.stackTraceToString())
                         }
                     }
                 }
