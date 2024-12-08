@@ -305,7 +305,7 @@ class MainActivity2 : AppCompatActivity() {
             }
             intent.removeExtra(Intent.EXTRA_TEXT)
             intent.removeExtra(Intent.EXTRA_STREAM)
-            setResult(Activity.RESULT_OK)
+            setResult(RESULT_OK)
         }
         lastProcessedIntentHash = intent.hashCode()
 
@@ -413,8 +413,8 @@ fun MainNavHost(
 
             val icalObjectId = backStackEntry.arguments?.getLong(DetailDestination.argICalObjectId) ?: return@composable
             val icalObjectIdList = backStackEntry.arguments?.getString(DetailDestination.argICalObjectIdList)?.let { Json.decodeFromString<List<Long>>(it)} ?: listOf(icalObjectId)
-            val editImmediately = backStackEntry.arguments?.getBoolean(DetailDestination.argIsEditMode) ?: false
-            val returnToLauncher = backStackEntry.arguments?.getBoolean(DetailDestination.argReturnToLauncher) ?: false
+            val editImmediately = backStackEntry.arguments?.getBoolean(DetailDestination.argIsEditMode) == true
+            val returnToLauncher = backStackEntry.arguments?.getBoolean(DetailDestination.argReturnToLauncher) == true
 
             /*
             backStackEntry.savedStateHandle[DetailDestination.argICalObjectId] = icalObjectId
