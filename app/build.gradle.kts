@@ -29,8 +29,8 @@ android {
         buildConfigField("long", "buildTime", "${System.currentTimeMillis()}L")
         minSdk = 23
         targetSdk = 35
-        versionCode = 210000003
-        versionName = "2.10.00-alpha03"      // keep -release as a suffix also for release, build flavor adds the suffix e.g. .gplay (e.g. 1.00.00-rc0.gplay)
+        versionCode = 210000004
+        versionName = "2.10.00-beta01"      // keep -release as a suffix also for release, build flavor adds the suffix e.g. .gplay (e.g. 1.00.00-rc0.gplay)
         buildConfigField("String", "versionCodename", "\"Pride is a protest \uD83C\uDF08\"")
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
@@ -211,7 +211,8 @@ dependencies {
     // third-party libs
     implementation(libs.mikepenz.aboutLibraries)
     implementation(libs.colorpicker.compose)  // Compose Color Picker
-    implementation(libs.markdowntext) // Markdown support
+    //implementation(libs.markdowntext) // Markdown support
+    implementation(libs.twain) // Markdown support
     implementation(libs.osmdroid.android) //Open Street Maps
     implementation (libs.calendar.compose)
     implementation (libs.reorderable)
