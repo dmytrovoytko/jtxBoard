@@ -152,7 +152,7 @@ fun DetailsCardCategories(
                 all.category.lowercase().contains(newCategory.lowercase())
                         && categories.none { existing -> existing.text.lowercase() == all.category.lowercase() }
             }
-            AnimatedVisibility(categoriesToSelectFiltered.isNotEmpty() && isEditMode) {
+            AnimatedVisibility(isEditMode) {
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.fillMaxWidth()

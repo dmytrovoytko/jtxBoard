@@ -28,7 +28,6 @@ import androidx.compose.material.icons.outlined.WorkOutline
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ElevatedAssistChip
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.InputChip
@@ -65,7 +64,7 @@ import at.techbee.jtx.ui.reusable.elements.HeadlineWithIcon
 import at.techbee.jtx.ui.theme.getContrastSurfaceColorFor
 
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DetailsCardResources(
     resources: SnapshotStateList<Resource>,
@@ -149,7 +148,7 @@ fun DetailsCardResources(
                         && resources.none { existing -> existing.text?.lowercase() == all.resource.lowercase() }
             }
 
-            AnimatedVisibility(resourcesToSelectFiltered.isNotEmpty() && isEditMode) {
+            AnimatedVisibility(isEditMode) {
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.fillMaxWidth()
