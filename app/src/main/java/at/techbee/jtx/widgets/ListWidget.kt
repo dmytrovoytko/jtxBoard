@@ -41,7 +41,6 @@ import at.techbee.jtx.util.SyncUtil
 import at.techbee.jtx.util.UiUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 const val MAX_WIDGET_ENTRIES = 50
@@ -166,14 +165,17 @@ class ListWidget : GlanceAppWidget() {
                         else
                             ColorProvider(if(UiUtil.isDarkColor(Color(listWidgetConfig.widgetColorEntries?:Color.White.toArgb()))) Color.White else Color.Black),
                     onCheckedChange = { iCalObjectId, checked ->
+                        val settingsStateHolder = SettingsStateHolder(context)
+                        val keepInSync = settingsStateHolder.settingKeepStatusProgressCompletedInSync.value
+                        val linkProgress = settingsStateHolder.settingLinkProgressToSubtasks.value
+
                         scope.launch(Dispatchers.IO) {
-                            val settingsStateHolder = SettingsStateHolder(context)
                             //val iCalObject = database.getICalObjectByIdSync(iCalObjectId) ?: return@launch
                             database.updateProgress(
                                 id = iCalObjectId,
                                 newPercent = if(checked) null else 100,
-                                settingKeepStatusProgressCompletedInSync = settingsStateHolder.settingKeepStatusProgressCompletedInSync.value,
-                                settingLinkProgressToSubtasks = settingsStateHolder.settingLinkProgressToSubtasks.value
+                                settingKeepStatusProgressCompletedInSync = keepInSync,
+                                settingLinkProgressToSubtasks = linkProgress
                             )
                             if(!checked) {
                                 NotificationManagerCompat.from(context).cancel(iCalObjectId.toInt())
