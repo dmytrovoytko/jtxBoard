@@ -1,0 +1,81 @@
+name: Create beta OSE
+on:
+  push:
+    tags:
+      - 'v*beta*'
+jobs:
+  build:
+    name: Create beta
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Prepare keystore
+        run: echo ${{ secrets.android_keystore_base64 }} | base64 -d >$GITHUB_WORKSPACE/keystore.jks
+        # run: echo ${{ secrets.android_keystore_base64 }} | base64 -d > ${{ github.workspace }}/keystore.jks
+
+      - name: Build signed package for OSE
+        run: ./gradlew app:assembleOseRelease
+        env:
+          ANDROID_KEYSTORE: ${{ github.workspace }}/keystore.jks
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.android_keystore_password }}
+          ANDROID_KEY_ALIAS: ${{ secrets.android_key_alias }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.android_key_password }}
+          CROWDIN_API_KEY: ${{ secrets.crowdin_api_key }}
+          GOOGLE_GEO_API_KEY: ${{ secrets.google_geo_api_key }}
+          GH_CONTRIBUTORS_API_KEY: ${{ secrets.gh_contributors_api_key }}
+
+      - name: Collect build results JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "build-results"
+          ## /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1740245720837.json
+          path: ${{ runner.temp }}/.gradle-actions/build-results
+          retention-days: 5
+
+      # - name: "Artifacts: All"
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: "all"
+      #     path: app/build/outputs/apk/
+      #     retention-days: 5
+
+      - name: "Artifacts: Android APK"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "android-apk"
+          path: |
+            app/build/outputs/apk/ose/*/*.apk
+
+      - name: Generate archive
+        # run: tar -cJvf release-${{ github.ref_name }}.tar.xz app/build/outputs/apk/ app/build/outputs/mapping/*/mapping.txt app/build/outputs/bundle/gplayRelease/
+        run: tar -cJvf release-${{ github.ref_name }}.tar.xz app/build/outputs/apk/ app/build/outputs/mapping/*/mapping.txt app/build/outputs/apk/ose/release/
+        env:
+          XZ_OPT: -9
+                    
+      - name: Copy OSE apk to root
+        ## app/build/outputs/apk/ose/release/app-ose-release.apk
+        run: cp app/build/outputs/apk/ose/release/app-ose-release.apk jtxBoard-${{ github.ref_name }}.apk
+
+      - name: Create Github release
+        uses: softprops/action-gh-release@v2.2.1
+        with:
+          prerelease: ${{ contains(github.ref_name, '-alpha') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-rc') }}
+          files: | 
+            release-${{ github.ref_name }}.tar.xz
+            jtxBoard-${{ github.ref_name }}.apk
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+
