@@ -5,7 +5,7 @@ on:
       - 'v*beta*'
 jobs:
   build:
-    name: Create beta
+    name: Create beta OSE
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -59,11 +59,11 @@ jobs:
           path: |
             app/build/outputs/apk/ose/*/*.apk
 
-      - name: Generate archive
-        # run: tar -cJvf release-${{ github.ref_name }}.tar.xz app/build/outputs/apk/ app/build/outputs/mapping/*/mapping.txt app/build/outputs/bundle/gplayRelease/
-        run: tar -cJvf release-${{ github.ref_name }}.tar.xz app/build/outputs/apk/ app/build/outputs/mapping/*/mapping.txt app/build/outputs/apk/ose/release/
-        env:
-          XZ_OPT: -9
+      # - name: Generate archive
+      #   # run: tar -cJvf release-${{ github.ref_name }}.tar.xz app/build/outputs/apk/ app/build/outputs/mapping/*/mapping.txt app/build/outputs/bundle/gplayRelease/
+      #   run: tar -cJvf release-${{ github.ref_name }}.tar.xz app/build/outputs/apk/ app/build/outputs/mapping/*/mapping.txt app/build/outputs/apk/ose/release/
+      #   env:
+      #     XZ_OPT: -9
                     
       - name: Copy OSE apk to root
         ## app/build/outputs/apk/ose/release/app-ose-release.apk
@@ -74,7 +74,7 @@ jobs:
         with:
           prerelease: ${{ contains(github.ref_name, '-alpha') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-rc') }}
           files: | 
-            release-${{ github.ref_name }}.tar.xz
+            # release-${{ github.ref_name }}.tar.xz
             jtxBoard-${{ github.ref_name }}.apk
           generate_release_notes: true
           fail_on_unmatched_files: true
