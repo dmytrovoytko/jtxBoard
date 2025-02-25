@@ -20,9 +20,14 @@ import androidx.core.view.WindowCompat
 import at.techbee.jtx.util.UiUtil
 
 private val _darkColorScheme = darkColorScheme(
+/* 
     primary = md_theme_light_primary,
     secondary = md_theme_light_secondary,
     tertiary = md_theme_light_tertiary,
+*/
+    primary = md_theme_dark_primary,
+    secondary = md_theme_dark_secondary,
+    tertiary = md_theme_dark_tertiary,
 
     /* Other default colors to override */
     background = md_theme_dark_background,
@@ -34,17 +39,29 @@ private val _darkColorScheme = darkColorScheme(
     secondaryContainer = md_theme_dark_secondaryContainer,
     onSecondaryContainer = md_theme_dark_onSecondaryContainer,
     onTertiary = md_theme_dark_onTertiary,
+
+    tertiaryContainer = md_theme_dark_tertiaryContainer,
+    onTertiaryContainer = md_theme_dark_onTertiaryContainer,
+
     onBackground = md_theme_dark_onBackground,
     onSurface = md_theme_dark_onSurface,
     surfaceVariant = md_theme_dark_surfaceVariant,
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
-    inverseOnSurface = md_theme_dark_inverseOnSurface
+    inverseOnSurface = md_theme_dark_inverseOnSurface, 
+
+    inversePrimary = md_theme_dark_inversePrimary,
+    inverseSurface = md_theme_dark_inverseSurface,
 )
 
 private val _lightColorScheme = lightColorScheme(
+/* 
     primary = md_theme_dark_primary,
     secondary = md_theme_dark_secondary,
     tertiary = md_theme_dark_tertiary,
+*/
+    primary = md_theme_light_primary,
+    secondary = md_theme_light_secondary,
+    tertiary = md_theme_light_tertiary,
 
     /* Other default colors to override */
     background = md_theme_light_background,
@@ -56,11 +73,18 @@ private val _lightColorScheme = lightColorScheme(
     secondaryContainer = md_theme_light_secondaryContainer,
     onSecondaryContainer = md_theme_light_onSecondaryContainer,
     onTertiary = md_theme_light_onTertiary,
+
+    tertiaryContainer = md_theme_light_tertiaryContainer,
+    onTertiaryContainer = md_theme_light_onTertiaryContainer,
+
     onBackground = md_theme_light_onBackground,
     onSurface = md_theme_light_onSurface,
     surfaceVariant = md_theme_light_surfaceVariant,
     onSurfaceVariant = md_theme_light_onSurfaceVariant,
-    inverseOnSurface = md_theme_light_inverseOnSurface
+    inverseOnSurface = md_theme_light_inverseOnSurface,
+
+    inversePrimary = md_theme_light_inversePrimary,
+    inverseSurface = md_theme_light_inverseSurface,
 )
 
 private val _contrastColorScheme = lightColorScheme(
