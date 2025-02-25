@@ -81,7 +81,7 @@ fun AboutJtx(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(
                     id = R.string.about_app_codename,
-                    BuildConfig.versionCodename
+                    "\"Stand with Ukraine \uD83C\uDDFA\uD83C\uDDE6\"" // BuildConfig.versionCodename
                 ),
                 style = Typography.bodyLarge,
                 textAlign = TextAlign.Center
