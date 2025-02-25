@@ -1,4 +1,4 @@
-name: Create beta
+name: Create beta OSE
 on:
   push:
     tags:
