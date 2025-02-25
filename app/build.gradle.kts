@@ -95,6 +95,13 @@ android {
             storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD") //?: providers.gradleProperty("keystore.password")
             keyAlias = System.getenv("ANDROID_KEY_ALIAS") //?: providers.gradleProperty("keystore.key.alias")
             keyPassword = System.getenv("ANDROID_KEY_PASSWORD") //?: providers.gradleProperty("keystore.key.password")
+
+            // Optional, specify signing versions used
+            // v1SigningEnabled = true
+            // v2SigningEnabled = true
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
         }
     }
 
