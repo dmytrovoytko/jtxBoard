@@ -10,6 +10,7 @@ package at.techbee.jtx.ui.reusable.elements
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Checkbox
@@ -104,7 +105,8 @@ fun ProgressElement(
                         (sliderPosition / sliderIncrement * sliderIncrement).toInt(),
                     )
                 },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f)
+                    .height(25.dp),
                 enabled = !isReadOnly
             )
             Text(
