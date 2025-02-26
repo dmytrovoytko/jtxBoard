@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +37,7 @@ import at.techbee.jtx.R
 import at.techbee.jtx.database.Status
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun ProgressElement(
     label: String?,
     iCalObjectId: Long,
@@ -106,7 +109,13 @@ fun ProgressElement(
                     )
                 },
                 modifier = Modifier.weight(1f)
-                    .height(25.dp),
+                    .height(20.dp),
+                track = { sliderState ->
+                    SliderDefaults.Track(
+                        sliderState = sliderState,
+                        modifier = Modifier.height(5.dp),
+                    )
+                },
                 enabled = !isReadOnly
             )
             Text(
