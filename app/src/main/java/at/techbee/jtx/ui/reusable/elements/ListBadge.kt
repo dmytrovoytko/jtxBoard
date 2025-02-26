@@ -38,7 +38,7 @@ fun ListBadge(
     @DrawableRes iconRes: Int? = null,
     iconDesc: String? = null,
     text: String? = null,
-    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    containerColor: Color = MaterialTheme.colorScheme.secondaryContainer, // primaryContainer,
     isAccessibilityMode: Boolean
 ) {
     val contentColor = MaterialTheme.colorScheme.getContrastSurfaceColorFor(containerColor)
