@@ -297,6 +297,7 @@ fun ListQuickAddElement(
                             }
                         }
                     },
+                    minLines = 2,
                     maxLines = 3,
                     modifier = Modifier
                         .fillMaxWidth()
